@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest package="com.blindo.app"
+          xmlns:android="http://schemas.android.com/apk/res/android">
+
+	<uses-permission android:name="android.permission.VIBRATE"/>
+	<uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+	<uses-permission android:name="android.permission.INTERNET"/>
+	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+	<!-- 2015.08.14 이민정 -->
+	<uses-permission android:name="android.permission.READ_SMS"/>
+	<uses-permission android:name="android.permission.SEND_SMS"/>
+	<uses-permission android:name="android.permission.RECEIVE_SMS"/>
+	<uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+	<uses-permission android:name="android.permission.CALL_PHONE"/>
+	<uses-permission android:name="android.permission.READ_CONTACTS"/>
+	<!-- 2015.08.14 이민정 -->
+	<uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
+	<uses-permission android:name="android.permission.DIAL_PHONE" />
+	<uses-permission android:name="android.permission.READ_CALL_LOG"/>
+
+	<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
+	<uses-permission android:name="android.permission.GET_TASKS" />
+
+	<uses-permission android:name="android.permission.WRITE_SMS"/>
+
+	<uses-permission android:name="android.permission.WAKE_LOCK" />
+
+	<application
+		android:allowBackup="true"
+		android:theme="@style/AppTheme"
+		android:screenOrientation="portrait">
+
+
+		<!-- 서비스 -->
+
+		<!-- 키보드 -->
+		<service
+			android:name=".keyboard.BrailleKeyboardService"
+			android:label="점자 키보드"
+			android:permission="android.permission.BIND_INPUT_METHOD">
+			<intent-filter>
+				<action android:name="android.view.InputMethod"/>
+			</intent-filter>
+			<meta-data
+				android:name="android.view.im"
+				android:resource="@xml/braille_board_method"/>
+		</service>
+
+		<!-- 액티비티 -->
+
+		<!-- 잠금화면 -->
+		<activity
+			android:name=".lockscreen.LockScreenActivity"
+			android:excludeFromRecents="true"
+			android:label="BlinDo 잠금화면" >
+
+
+		</activity>
+
+		<service android:name=".lockscreen.ScreenService" />
+		<receiver android:name=".lockscreen.ScreenReceiver" />
+
+		<receiver android:name=".lockscreen.BootBroadCastReceiver">
+			<intent-filter>
+				<action android:name="android.intent.action.BOOT_COMPLETED" />
+			</intent-filter>
+		</receiver>
+
+
+
+		<!-- 홈런처 -->
+		<activity
+			android:name=".homelauncher.HomeActivity"
+			android:icon="@drawable/ic_home"
+			android:label="BlinDo 런처">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.HOME" />
+				<category android:name="android.intent.category.DEFAULT" />
+				<category android:name="android.intent.category.LAUNCHER"/>
+				<category android:name="android.intent.category.MONKEY"/>
+			</intent-filter>
+		</activity>
+
+		<activity
+			android:name=".homelauncher.HomeAppSearch"
+			android:windowSoftInputMode="stateVisible">
+		</activity>
+		<activity
+			android:name=".homelauncher.HomeAppAdd"
+			android:windowSoftInputMode="stateVisible">
+		</activity>
+
+
+		<!-- 전화 -->
+		<activity
+			android:name=".phone.PhoneActivity"
+			android:label="BlinDo 전화"
+			android:icon="@drawable/ic_phone"
+			android:windowSoftInputMode="stateVisible">
+			<intent-filter>
+				<action android:name="android.intent.action.DIAL"/>
+				<action android:name="android.intent.action.MAIN"/>
+				<category android:name="android.intent.category.DEFAULT" />
+				<category android:name="android.intent.category.LAUNCHER"/>
+				<category android:name="android.intent.category.BROWSABLE"/>
+			</intent-filter>
+		</activity>
+
+		<!-- 문자 -->
+		<receiver android:name=".message.SmsReceiver"
+		          android:permission="android.permission.BROADCAST_SMS">
+			<intent-filter>
+				<action android:name="android.provider.Telephony.SMS_DELIVER" />
+			</intent-filter>
+		</receiver>
+
+
+
+		<activity android:name=".message.MessageSenderListActivity"
+		          android:icon="@drawable/ic_message"
+		          android:label="BlinDo 메시지">
+		</activity>
+
+		<activity android:name=".message.MessageTextListActivity" ></activity>
+		<activity android:name=".message.SendMessageActivity"
+		          android:windowSoftInputMode="stateVisible">
+		</activity>
+		<activity android:name=".message.MessageRecipientSearch"
+		          android:windowSoftInputMode="stateVisible"></activity>
+
+
+		<activity android:name=".WeatherLocationSetting"></activity>
+		<activity android:name=".AppPreferenceActivity"></activity>
+		<activity android:name=".LockShortcutSetting"
+		          android:windowSoftInputMode="stateVisible"></activity>
+
+
+
+
+	</application>
+
+</manifest>

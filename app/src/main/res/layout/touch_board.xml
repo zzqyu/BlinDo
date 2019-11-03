@@ -1,0 +1,9 @@
+<com.blindo.app.keyboard.TouchBoardView
+		xmlns:android="http://schemas.android.com/apk/res/android"
+		android:id="@+id/touch_board"
+		android:layout_alignParentBottom="true"
+		android:layout_width="fill_parent"
+		android:layout_height="fill_parent"
+		android:layout_gravity="top"
+		android:layout_marginBottom="40dp"
+		android:background="#ac000000"/>
